@@ -12,5 +12,7 @@ public interface CourseInterface {
 	
 	public void addCourse(Course course);
 	
-	public boolean deleteCouse(long courseId);
+	public void updateCourse(Course course);
+	
+	public void deleteCourse(long courseId);
 }

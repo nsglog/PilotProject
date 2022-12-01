@@ -3,62 +3,49 @@ package com.springrest.springrest.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springrest.springrest.dao.CourseDao;
 import com.springrest.springrest.entities.Course;
 
 
 @Service
 public class CourseServiceImplementation implements CourseInterface {
 	
-	List<Course> list;
-	
-	public CourseServiceImplementation() {
-		
-		list = new ArrayList<>();
-		
-		list.add(new Course(1, "java core", "this course contains basics of java"));
-		list.add(new Course(2, "spring boot course", "creating rest APIS using springboot"));
-		list.add(new Course(3, "api class", "learn to create an api using springboot"));
-	}
+	@Autowired
+	private CourseDao cd;
 	
 	
 	@Override
 	public List<Course> getCourses() {
-		 
-		return list;
+		return cd.findAll();
 	}
 
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Course getCourse(long courseId) {
-		
-		for(Course  c : list)	{
-			
-			if(c.getId() == courseId)	return c;
-		}
-		
-		return null;
+		return cd.getById(courseId);
 	}
 
 
 	@Override
 	public void addCourse(Course course) {
-		list.add(course);
+		cd.save(course);
+	}
+	
+	@Override
+	public void updateCourse(Course course)	{
+		cd.save(course);
 	}
 
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public boolean deleteCouse(long courseId) {
+	public void deleteCourse(long courseId) {
 		
-		for(Course course : list)	{
-			
-			if(course.getId() == courseId)	{
-				list.remove(course);
-				return true;
-			}
-		}
-		
-		return false;
+		Course entity = cd.getOne(courseId);
+		cd.delete(entity);
 	}
 }

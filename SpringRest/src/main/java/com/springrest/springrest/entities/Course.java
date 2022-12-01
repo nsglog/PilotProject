@@ -1,13 +1,19 @@
 package com.springrest.springrest.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Course {
 	
+	@Id
 	private long id;
 	private String title;
 	private String description;
 	
+	public Course() {}
+	
 	public Course(long id, String title, String description) {
-		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -36,7 +42,4 @@ public class Course {
 	public String toString() {
 		return "Course [id=" + id + ", title=" + title + ", description=" + description + "]";
 	}
-	
-	
-
 }
